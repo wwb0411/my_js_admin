@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul{
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
+        }
+        li{
+            width: 20px;
+            height: 20px;
+            position: relative;
+        }
+        .red{
+            background-color: red;
+        }
+        .green{
+            background-color: green;
+        }
+        .black{
+            background-color: black;
+        }
+        .tt{
+            width: 300px;
+            border: 1px solid rgb(134, 127, 84);
+            display: flex;
+            background: #fff;
+        }
+        .span{
+            width: 50px;
+            border-right:1px solid rgb(134, 127, 84) ;
+            color: rgb(134, 127, 84);
+            text-align: center;
+        }
+        .big{
+            margin-left: 600px;
+        }
+        .a1{
+            width: 5px;
+            height: 5px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .x{
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="big">
+        <ul>
+            <li class="red" onclick="bh()">
+                <div class="a1">1</div>
+            </li>
+            <li class="green" onclick="bl()">
+                <div class="a1">2</div>
+            </li>
+            <li class="black" onclick="bb()">
+                <div class="a1">3</div>
+            </li>
+        </ul>
+        <div class="tt">
+            <div class="span"><a>新闻</a></div>
+            <div class="span"><a>娱乐</a></div>
+            <div class="span"><a>体育</a></div>
+            <div class="span"><a>电影</a></div>
+            <div class="span"><a>音乐</a></div>
+            <div class="span"><a>旅游</a></div>
+        </div>
+    </div>
+</body>
+<script>
+    let a1 = document.querySelector(".a1");
+    let a2 = document.querySelector(".a2");
+    let a3 = document.querySelector(".a3");
+    let tt = document.querySelector(".tt");
+    let body = document.querySelector("body")
+    let a = document.querySelectorAll(".a1")
+    function bh(){
+        tt.style.background="red";
+        body.style.background="hotpink";
+    }
+    function bl(){
+        tt.style.background="green";
+        body.style.background="yellowgreen";
+    }
+    function bb(){
+        tt.style.background="black";
+        body.style.background="pink";
+    }
+    for (var index = 0; index < a.length; index++) {
+        a[index].onclick=function(){
+            for (let j = 0; j < a.length; j++) {
+                a[j].classList.remove("x")
+            }
+            this.classList.add("x")
+        }
+    }
+</script>
+</html>
