@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            margin-left: 48%;
+        }
+
+        ul {
+            list-style: none;
+            display: none;
+        }
+
+        li {
+            width: 43px;
+            text-align: center;
+            border: 1px solid #ccc;
+
+        }
+
+        li:hover {
+            background-color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <button>输入法</button>
+        <ul>
+            <li>简写</li>
+            <li>拼音</li>
+            <li class="gb">关闭</li>
+        </ul>
+    </div>
+</body>
+<script>
+    let ul = document.querySelector("ul")
+    let bg = document.querySelector(".gb")
+    document.querySelector("button").onclick = function () {
+        ul.style.display = "block"
+    }
+    bg.onclick = function () {
+        ul.style.display = "none"
+    }
+
+</script>
+
+</html>
