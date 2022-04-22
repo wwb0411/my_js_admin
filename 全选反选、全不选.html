@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+       
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 8%;
+            margin: 10px auto;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 5px 10px;
+        }
+
+        .t {
+            width: 100%;
+            height: 36px;
+            line-height: 36px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .b {
+            width: 100%;
+        }
+
+        .cc {
+            width: 100%;
+            height: 36px;
+            line-height: 36px;
+            display: flex;
+        }
+
+        .qx:hover {
+            cursor: pointer;
+        }
+
+
+        .aaaa:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="t">
+            <div>
+                <input type="checkbox" id="chckAll" />
+            </div>
+            <div>
+                <div class="qx s">全选</div>
+                <div style="display: none;" class="qx s1">全不选</div>
+            </div>
+            <div class="aaaa" style="color: blue;">反选</div>
+        </div>
+        <div class="b">
+            <div class="cc">
+                <div style="margin-right: 15px;">
+                    <input type="checkbox" name="fx" />
+                </div>
+                <div>选项 (一)</div>
+            </div>
+            <div class="cc">
+                <div style="margin-right: 15px;">
+                    <input type="checkbox" name="fx" />
+                </div>
+                <div>选项 (二)</div>
+            </div>
+            <div class="cc">
+                <div style="margin-right: 15px;">
+                    <input type="checkbox" name="fx" />
+                </div>
+                <div>选项 (三)</div>
+            </div>
+            <div class="cc">
+                <div style="margin-right: 15px;">
+                    <input type="checkbox" name="fx" />
+                </div>
+                <div>选项 (四)</div>
+            </div>
+            <div class="cc">
+                <div style="margin-right: 15px;">
+                    <input type="checkbox" name="fx" />
+                </div>
+                <div>选项 (五)</div>
+            </div>
+            <div class="cc">
+                <div style="margin-right: 15px;">
+                    <input type="checkbox" name="fx" />
+                </div>
+                <div>选项 (六)</div>
+            </div>
+            <div class="cc">
+                <div style="margin-right: 15px;">
+                    <input type="checkbox" name="fx" />
+                </div>
+                <div>选项 (七)</div>
+            </div>
+            <div class="cc">
+                <div style="margin-right: 15px;">
+                    <input type="checkbox" name="fx" />
+                </div>
+                <div>选项 (八)</div>
+            </div>
+            <div class="cc">
+                <div style="margin-right: 15px;">
+                    <input type="checkbox" name="fx" />
+                </div>
+                <div>选项 (九)</div>
+            </div>
+            <div class="cc">
+                <div style="margin-right: 15px;">
+                    <input type="checkbox" name="fx" />
+                </div>
+                <div>选项 (十)</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let s = document.querySelector(".s")
+    let s1 = document.querySelector(".s1")
+    let inp = document.querySelectorAll("input")
+    let aaaa = document.querySelector(".aaaa")
+    let checks = document.getElementsByName("fx")
+    let checkAll = document.querySelector("#chckAll")
+    let n = 0
+    function bh(check) {
+        if (check == false) {
+            s.style.display = "block"
+            s1.style.display = "none"
+        } else {
+            s1.style.display = "block"
+            s.style.display = "none"
+        }
+    }
+    aaaa.onclick = function () {
+
+        checkAll.checked = !checkAll.checked
+
+        for (let index = 0; index < inp.length; index++) {
+            inp[index].checked = !inp[index].checked
+        }
+        console.log('全选按钮状态', checkAll.checked)
+        console.log(checks.length)
+        bh(checkAll.checked)
+    }
+    for (var i = 0; i < checks.length; i++) {
+        checks[i].onclick = function () {
+            this.checked ? n++ : n--
+            checkAll.checked = (n === checks.length)
+        }
+    }
+    s.onclick = function () {
+        for (let index = 0; index < inp.length; index++) {
+            inp[index].checked = true
+            bh(inp[0].checked)
+        }
+    }
+    s1.onclick = function () {
+        for (let index = 0; index < inp.length; index++) {
+            inp[index].checked = false
+            bh(inp[0].checked)
+        }
+    }
+    for (let i = 0; i < inp.length; i++) {
+        inp[0].onchange = function () {
+            n = inp[0].checked ? inp.length - 1 : 0
+            console.log(n)
+            for (let index = 0; index < inp.length; index++) {
+                inp[index].checked = this.checked
+            }
+            bh(this.checked)
+        }
+    }
+
+</script>
+
+</html>
