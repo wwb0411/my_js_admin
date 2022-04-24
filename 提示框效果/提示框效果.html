@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 600px;
+            height: 300px;
+            border: 1px solid #000;
+            margin: 0 auto;
+        }
+
+        header {
+            width: 100%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 22px;
+        }
+
+        .list {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .item {
+            width: 17%;
+            height: 80px;
+            border: 1px solid #000;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .img {
+            position: absolute;
+            top: -30px;
+            left: -25px;
+            width: 150px;
+            height: 150px;
+            display: none;
+            background-color: #fff;
+            border: 2px solid #000;
+        }
+
+        img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <header>车标展示</header>
+        <div class="list">
+            <div class="item">
+                <div class="title">
+                    <p>lambojini</p>
+                    <p>兰博基尼</p>
+                </div>
+                <div class="img">
+                    <img src="./1.jpg" alt="">
+                </div>
+            </div>
+            <div class="item">
+                <div class="title">
+                    <p>lambojini</p>
+                    <p>兰博基尼</p>
+                </div>
+                <div class="img">
+                    <img src="./1.jpg" alt="">
+                </div>
+            </div>
+            <div class="item">
+                <div class="title">
+                    <p>lambojini</p>
+                    <p>兰博基尼</p>
+                </div>
+                <div class="img">
+                    <img src="./1.jpg" alt="">
+                </div>
+            </div>
+            <div class="item">
+                <div class="title">
+                    <p>lambojini</p>
+                    <p>兰博基尼</p>
+                </div>
+                <div class="img">
+                    <img src="./1.jpg" alt="">
+                </div>
+            </div>
+            <div class="item">
+                <div class="title">
+                    <p>lambojini</p>
+                    <p>兰博基尼</p>
+                </div>
+                <div class="img">
+                    <img src="./1.jpg" alt="">
+                </div>
+            </div>
+            <div class="item">
+                <div class="title">
+                    <p>lambojini</p>
+                    <p>兰博基尼</p>
+                </div>
+                <div class="img">
+                    <img src="./1.jpg" alt="">
+                </div>
+            </div>
+            <div class="item">
+                <div class="title">
+                    <p>lambojini</p>
+                    <p>兰博基尼</p>
+                </div>
+                <div class="img">
+                    <img src="./1.jpg" alt="">
+                </div>
+            </div>
+            <div class="item">
+                <div class="title">
+                    <p>lambojini</p>
+                    <p>兰博基尼</p>
+                </div>
+                <div class="img">
+                    <img src="./1.jpg" alt="">
+                </div>
+            </div>
+            <div class="item">
+                <div class="title">
+                    <p>lambojini</p>
+                    <p>兰博基尼</p>
+                </div>
+                <div class="img">
+                    <img src="./1.jpg" alt="">
+                </div>
+            </div>
+            <div class="item">
+                <div class="title">
+                    <p>lambojini</p>
+                    <p>兰博基尼</p>
+                </div>
+                <div class="img">
+                    <img src="./1.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let item = document.querySelectorAll(".item")
+    let img = document.querySelectorAll(".img")
+    console.log(img, item)
+    for (let index = 0; index < item.length; index++) {
+        item[index].onmouseover = function () {
+            item[index].i = index
+            for (let j = 0; j < item.length; j++) {
+                img[j].style.display = "none"
+            }
+            img[item[index].i].style.display = "block"
+        }
+        item[index].onmouseout = function () {
+            for (let j = 0; j < item.length; j++) {
+                img[j].style.display = "none"
+            }
+        }
+    }
+</script>
+
+</html>

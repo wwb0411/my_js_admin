@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 600px;
+            height: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <input id="inp1" type="text"> + <input id="inp2" type="text"> = <span id="span">?</span> <button id="btn">求和</button>
+    </div>
+</body>
+</html>
+<script>
+    let inp1 = document.querySelector("#inp1")
+    let inp2 = document.querySelector("#inp2")
+    let btn = document.querySelector("#btn")
+    let span = document.querySelector("#span")
+    btn.onclick = function(){
+        // span.innerHTML = Number(inp1.value) + Number(inp2.value)
+        let a = Number(inp1.value)
+        let b = Number(inp2.value)
+        span.innerHTML = a+b
+    }
+</script>
