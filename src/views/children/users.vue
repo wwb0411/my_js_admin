@@ -10,7 +10,7 @@
             <!-- 搜索框添加用户按钮 -->
             <el-row :gutter="10">
                 <el-col :span="6">
-                    <el-input placeholder="请输入内容" clearable @clear="search" v-model="userQuery.query" class="input-with-select">
+                    <el-input placeholder="请输入内容" clearable @input="search" @clear="search" v-model="userQuery.query" class="input-with-select">
                         <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
                     </el-input>
                 </el-col>
@@ -41,11 +41,23 @@
                         <el-button size="mini" type="primary" @click="edit(scope)">
                             编辑</el-button>
                         <el-button size="mini" type="danger" @click="del(scope)">删除</el-button>
-                        <el-button size="mini" type="success" @click="userRole(scope)">分配权限</el-button>
+                        <el-button size="mini" type="success" @click="userRole(scope.row)">分配权限</el-button>
                     </template>
                 </el-table-column>
             </el-table>
-            <!-- 添加表单 -->
+            <!-- 分页器 -->
+            <el-pagination
+            class="mt16"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="userQuery.pagenum"
+                :page-sizes="[2, 4, 6, 8,14,28]"
+                :page-size="userQuery.pagesize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total">
+            </el-pagination>
+        </el-card>
+         <!-- 添加表单 -->
             <el-dialog title="添加用户" :visible.sync="isShow">
                 <el-form ref="forms" label-width="80px" :rules="rules" :model="form" >
                     <el-form-item label="用户名:" prop="username">
@@ -84,27 +96,44 @@
                     <el-button type="primary" @click="doEdit">确 定</el-button>
                 </div>
             </el-dialog>
-            <!-- 分页器 -->
-            <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page="userQuery.pagenum"
-                :page-sizes="[2, 4, 6, 8]"
-                :page-size="userQuery.pagesize"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="total">
-            </el-pagination>
-        </el-card>
+            <!-- 分配权限表单 -->
+            <el-dialog title="分配权限" :visible.sync="isShow2">
+                <el-form ref="forms1" label-width="120px">
+                    <el-form-item label="当前的用户:" >
+                      <span>{{qx.username}}</span>
+                    </el-form-item>
+                    <el-form-item label="当前的角色:" >
+                      <span>{{qx.role_name}}</span>
+                    </el-form-item>
+                    <el-form-item label="分配新角色:" >
+                      <el-select v-model="rid" placeholder="请选择">
+                        <el-option
+                          v-for="item in qx.relos"
+                          :key="item.id"
+                          :value="item.id"
+                          :label="item.roleName"
+                          >
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="isShow2 = false">取 消</el-button>
+                    <el-button type="primary" @click="changeRelos">确 定</el-button>
+                </div>
+            </el-dialog>
     </div>
 </template>
 <script>
+import _ from "lodash";
 import {
   getusersApi,
   changeState,
   addUser,
   delUser,
   editUser,
-//   rolesId,
+  rolesId,
+  changeRole,
 } from "@/http/api.js";
 export default {
   data() {
@@ -120,6 +149,16 @@ export default {
       isShow: false,
       //  打开编辑模态框
       isShow1: false,
+      //  打开分配权限模态框
+      isShow2: false,
+      // 分配权限的数据
+      qx: {
+        username: "",
+        roleName: "",
+        relos: [],
+      },
+      // 权限id
+      rid: "",
       //   模态框的表单内容
       form: {
         username: "",
@@ -240,9 +279,9 @@ export default {
       this.getUsers();
     },
     // 搜索
-    search() {
+    search: _.debounce(function() {
       this.getUsers();
-    },
+    }, 500),
     // 添加用户
     async stateChange(scope) {
       console.log(scope.row.id);
@@ -284,10 +323,20 @@ export default {
         });
     },
     // 分配权限
-    async userRole(scope) {
-    //   let res = await rolesId(scope);
-      console.log(scope.$index);
-      console.log(this.userList[scope.$index])
+    async userRole(row) {
+      let res = await rolesId();
+      this.qx = row;
+      this.qx.relos = res;
+      this.isShow2 = true;
+    },
+    // 调用接口
+    async changeRelos() {
+      console.log(this.rid, this.qx.id);
+      let res = await changeRole(this.qx.id, this.rid);
+      console.log(res);
+      this.rid = "";
+      this.isShow2 = false;
+      this.getUsers();
     },
   },
   // 在页面创建的时候调用方法渲染页面

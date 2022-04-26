@@ -5,20 +5,20 @@
         <div class="title">
           <h2>后台管理系统</h2>
         </div>
-        <el-button style="height:40px;" @click="tc">退出</el-button>
+        <el-button style="height:40px;" @click="tc" type="info">退出</el-button>
       </el-header>
       <el-container>
         <el-aside :width="flag ? '65px' : '200px ' ">
           <el-menu :default-active="$route.path" class="el-menu-vertical-demo" background-color="#333744" text-color="#fff" active-text-color="#ffd04b" router :collapse-transition="false" unique-opened :collapse="flag">
               <header @click="open">|||</header>
               <el-submenu :index="index+''" v-for="(item,index) in menus" :key="index">
-              <template slot="title">
-                <i class="el-icon-location"></i>
-                <span slot="title">{{item.authName}}</span>
-              </template>
-              <el-menu-item-group v-for="(ite,ind) in item.children" :key="ind">
-                <el-menu-item :index="'/'+ite.path">{{ite.authName}}</el-menu-item>
-              </el-menu-item-group>
+                <template slot="title">
+                  <i class="el-icon-location"></i>
+                  <span slot="title">{{item.authName}}</span>
+                </template>
+                <el-menu-item-group v-for="(ite,ind) in item.children" :key="ind">
+                  <el-menu-item :index="'/'+ite.path">{{ite.authName}}</el-menu-item>
+                </el-menu-item-group>
               </el-submenu>
             </el-menu>
         </el-aside>
@@ -31,12 +31,12 @@
 </template>
 
 <script>
-import {menuApi} from "@/http/api"
+import { menuApi } from "@/http/api";
 export default {
   data() {
     return {
       flag: false,
-      menus:[]
+      menus: [],
     };
   },
   methods: {
@@ -63,13 +63,11 @@ export default {
     },
     open() {
       this.flag = !this.flag;
-      console.log(this.flag);
     },
   },
   async mounted() {
-    let res = await menuApi()
-    this.menus = res
-    console.log(this.menus)
+    let res = await menuApi();
+    this.menus = res;
   },
   computed: {},
   watch: {},

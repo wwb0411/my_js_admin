@@ -11,7 +11,7 @@
           </el-form-item>
           <el-form-item class="btns">
             <el-button type="primary" @click="login">登录</el-button>
-            <el-button type="info">重置</el-button>
+            <el-button type="info" @click="cz">重置</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -23,8 +23,8 @@ export default {
   data() {
     return {
       loginForm: {
-        username: "",
-        password: "",
+        username: "admin",
+        password: "123456",
       },
       rules: {
         username: [
@@ -47,6 +47,9 @@ export default {
         this.$router.push('/home')
       });
     },
+    cz(){
+      this.$refs.loginForms.resetFields()
+    }
   },
   mounted() {},
   computed: {},
