@@ -8,6 +8,10 @@ import "./plugins/element.js";
 import axios from "@/http/request";
 Vue.prototype.$axios = axios;
 
+import * as API from '@/http/api'
+Vue.prototype.$api = API
+
+
 Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {

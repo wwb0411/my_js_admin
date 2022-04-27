@@ -15,7 +15,7 @@
                     </el-input>
                 </el-col>
                 <el-col :span="8">
-                    <el-button type="primary" @click="$router.push('/goods/add')">添加用户</el-button>
+                    <el-button type="primary" @click="$router.push('/goods/add')">添加商品</el-button>
                 </el-col>
             </el-row>
             <!-- 数据表格 -->
@@ -37,7 +37,7 @@
                     <template slot-scope="scope">
                         <el-button size="mini" type="primary" @click="edit(scope)">
                             编辑</el-button>
-                        <el-button size="mini" type="danger" @click="del(scope)">删除</el-button>
+                        <el-button size="mini" type="danger" @click="del(scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -57,7 +57,6 @@
 </template>
 <script>
 import _ from "lodash";
-import {getGoodsApi} from "@/http/api";
 export default {
   data() {
     return {
@@ -75,7 +74,7 @@ export default {
       this.getGoods()
     },500),
     async getGoods(){
-      let res = await getGoodsApi(this.goodsQuery);
+      let res = await this.$api.getGoodsApi(this.goodsQuery);
       console.log(res)
       this.goodsList = res.goods
       this.total = res.total
@@ -91,6 +90,21 @@ export default {
       this.goodsQuery.pagenum = val;
       this.getGoods()
     },
+    del(row){
+      this.$confirm('你确定要删除吗', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(async () => {
+          await this.$api.delGoods(row.goods_id)
+          this.getGoods()
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+      });
+    }
   },
   // 在页面创建的时候调用方法渲染页面
   created() {

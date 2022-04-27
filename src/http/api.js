@@ -10,8 +10,7 @@ export function loginApi(data) {
 export function menuApi() {
   return request({
     url: "/menus",
-    method: "GET",
-    // data: sessionStorage.getItem("token"),
+    method: "GET"
   });
 }
 export function getusersApi(params) {
@@ -68,9 +67,9 @@ export function changeRole(id,rid){
 }
 
 // 获取权限列表
-export function getRights(){
+export function getRights(type = "list"){
   return request({
-    url: `rights/list`,
+    url: `rights/${type}`,
     method: "GET",
   });
 }
@@ -96,11 +95,28 @@ export function editRoles(data) {
 }
 
 
-// 删除用户
+// 删除角色
 export function delRoles(id) {
   return request({
     url: `/roles/${id}`,
     method: "DELETE"
+  });
+}
+
+// 删除授权权限
+export function delRightsId(roleId,rightId) {
+  return request({
+    url: `roles/${roleId}/rights/${rightId}`,
+    method: "DELETE"
+  });
+}
+
+// 角色授权
+export function addRightsId(roleid,rids) {
+  return request({
+    url: `roles/${roleid}/rights`,
+    method: "POST",
+    data:{rids}
   });
 }
 
@@ -113,3 +129,22 @@ export function getGoodsApi(params) {
     params
   });
 }
+
+
+
+// 删除商品
+export function delGoods(id) {
+  return request({
+    url: `/goods/${id}`,
+    method: "DELETE"
+  });
+}
+
+// 获取商品分类列表
+export function getCategories() {
+  return request({
+    url: '/categories',
+    method: "GET"
+  });
+}
+
