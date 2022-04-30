@@ -141,10 +141,55 @@ export function delGoods(id) {
 }
 
 // 获取商品分类列表
-export function getCategories() {
+export function getCategories(params) {
   return request({
-    url: '/categories',
-    method: "GET"
+    url: `/categories`,
+    method: "GET",
+    params
+  });
+}
+
+// 添加商品分类列表
+export function addCategories(data) {
+  return request({
+    url: `/categories`,
+    method: "POST",
+    data
+  });
+}
+
+// 获取参数列表
+export function getCategoriesId(id,sel="many"){
+  return request({
+    url:`categories/${id}/attributes`,
+    method:"GET",
+    params:{sel}
+  })
+}
+
+// 添加商品
+export function addGoodsApi(data){
+  return request({
+    url:'goods',
+    method:"POST",
+    data
+  })
+}
+
+// 删除分类
+export function delCategories(id) {
+  return request({
+    url: `/categories/${id}`,
+    method: "DELETE"
+  });
+}
+
+// 编辑分类
+export function editCategories(data) {
+  return request({
+    url: `/categories/${data.catId}`,
+    method: "PUT",
+    data:{cat_name:data.editCatName}
   });
 }
 
